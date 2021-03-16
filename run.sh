@@ -1,9 +1,6 @@
 #!/bin/bash
 
-# PYCO="$(cat ./sample.py | sed 's/"//g')"
-# PYCO=$(cat ./sample.py | sed -E ':a;N;$!ba;s/\r{0,1}\n/\\n/g')
 PYCO=$(awk '{printf "%s\\n", $0}' ./sample.py | sed 's/"/\\"/g')
-# P=echo "$PYCO"
 
 JSON=$(cat <<-END
 {
