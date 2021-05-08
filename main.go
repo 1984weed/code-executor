@@ -14,13 +14,12 @@ import (
 	"strings"
 	"time"
 
-	guuid "github.com/google/uuid"
-
+	"github.com/google/uuid"
 	"github.com/urfave/cli/v2"
 )
 
 type responsePayload struct {
-	ResultState        string `json:"resultState"`
+	Result             string `json:"result"`
 	ExecTime           int    `json:"execTime,omitempty"`
 	LastInput          string `json:"lastInput,omitempty"`
 	LastOutput         string `json:"lastOutput,omitempty"`
@@ -55,7 +54,7 @@ func main() {
 		if err != nil {
 			panic(err)
 		}
-		id := guuid.New()
+		id := uuid.New()
 
 		workDir := fmt.Sprintf("%s/workspace/%s-sandboxfiles", path, id)
 		sand := SandBoxRunner{
@@ -167,7 +166,7 @@ func (s *SandBoxRunner) run() (*responsePayload, error) {
 	}
 
 	return &responsePayload{
-		ResultState: result,
+		Result: result,
 	}, nil
 }
 

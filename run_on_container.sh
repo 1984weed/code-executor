@@ -2,6 +2,8 @@
 
 PYCO=$(awk '{printf "%s\\n", $0}' ./sample.py | sed 's/"/\\"/g')
 
+docker run --name python -d -i baracode/python:latest 
+
 JSON=$(cat <<-END
 {
     "language": "python",
@@ -12,5 +14,9 @@ JSON=$(cat <<-END
     "expectOutputs": ["[0,1]", "[1,2]", "[0,1]"]
 }
 END)
-# echo $JSON | go run .
-echo "success" | go run .
+
+echo $JSON | docker attach  python
+docker logs python
+
+docker stop python
+docker rm -f python
